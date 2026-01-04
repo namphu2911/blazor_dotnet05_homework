@@ -1,0 +1,30 @@
+@page "/awards"
+@layout PorfolioLayout
+
+<section id="awards">
+    <h1 class="fw-bold">
+        AWARDS
+    </h1>
+    <ul class="list-unstyled mt-5">
+        @foreach (var award in Awards)
+        {
+            <li class="d-flex align-items-start mb-2">
+                <i class="bi bi-trophy-fill text-warning me-2"></i>
+                <span>@award</span>
+            </li>
+        }
+    </ul>
+</section>
+
+@code {
+    List<string> Awards = new List<string>
+{
+"Google Analytics Certified Developer",
+"Mobile Web Specialist - Google Certification",
+"1 st Place - University of Colorado Boulder - Emerging Tech Competition 2009",
+"1 st Place - University of Colorado Boulder - Adobe Creative Jam 2008 (UI Design Category)",
+"2 nd Place - University of Colorado Boulder - Emerging Tech Competition 2008",
+"1 st Place - James Buchanan High School - Hackathon 2006",
+"3 rd Place - James Buchanan High School - Hackathon 2005"
+};
+}

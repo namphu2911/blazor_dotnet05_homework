@@ -1,0 +1,31 @@
+@page "/education"
+@layout PorfolioLayout
+<section id="education">
+    <h1 class="fw-bold">EDUCATION</h1>
+    @foreach (var item in Items)
+    {
+        <EducationItem Item="item" />
+    }
+</section>
+
+@code
+{
+    [Parameter]
+    public List<EducationDto> Items { get; set; } = new()
+{
+new EducationDto
+{
+SchoolName = "University of Colorado Boulder",
+Degree = "Bachelor of Science",
+TimeRange = "August 2006 - May 2010",
+Description = "Computer Science - Web Development Track",
+GPA = "3.23"},
+new EducationDto
+{
+SchoolName = "James Buchanan High School",
+Degree = "Technology Magnet Program",
+TimeRange = "December 2011 - March 2013",
+Description = "",
+GPA = "3.56"}
+};
+}

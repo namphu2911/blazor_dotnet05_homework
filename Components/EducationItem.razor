@@ -1,0 +1,27 @@
+<div class="row mb-5">
+    <!-- Left -->
+    <div class="col-12 col-md-9">
+        <h4 class="fw-bold text-uppercase">
+            @Item.SchoolName
+        </h4>
+        <div class="text-muted fw-semibold mb-2">
+            @Item.Degree
+        </div>
+        <p class="mb-0">
+            @Item.Description
+        </p>
+        <p class="mb-0">
+            GPA: @Item.GPA
+        </p>
+    </div>
+    <!-- Right -->
+    <div class="col-12 col-md-3 text-md-end text-primary fw-semibold">
+        @Item.TimeRange
+    </div>
+</div>
+
+@code
+{
+    [Parameter, EditorRequired]
+    public EducationDto Item { get; set; } = new EducationDto();
+}

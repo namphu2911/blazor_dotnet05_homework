@@ -1,0 +1,41 @@
+@page "/skills"
+@layout PorfolioLayout
+
+<section id="skills">
+    <h1 class="fw-bold">
+        SKILLS
+    </h1>
+
+    <h4 class="fw-bold text-uppercase mt-5">
+        Programming Languages & Tools
+    </h4>
+    <div class="d-flex gap-3 mt-3">
+        <i class="bi bi-filetype-html fs-3"></i>
+        <i class="bi bi-css fs-3"></i>
+        <i class="bi bi-javascript fs-3"></i>
+        <i class="bi bi-wordpress fs-3"></i>
+    </div>
+
+    <h4 class="fw-bold text-uppercase mt-3">
+        Workflow
+    </h4>
+    <ul class="list-unstyled">
+        @foreach (var skill in SkillList)
+        {
+            <li class="d-flex align-items-start mb-2">
+                <i class="bi bi-check-lg text-primary me-2"></i>
+                <span>@skill</span>
+            </li>
+        }
+    </ul>
+</section>
+
+@code {
+    List<string> SkillList = new List<string>
+{
+"Mobile-First, Responsive Design",
+"Cross Browser Testing & Debugging",
+"Cross Functional Teams",
+"Agile Development & Scrum"
+};
+}

@@ -1,0 +1,42 @@
+@using System.Text.RegularExpressions
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">HOMEWORK</a>
+    <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId"
+        aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation"></button>
+    <div class="collapse navbar-collapse" id="collapsibleNavId">
+        <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+                <NavLink class="nav-link active" ActiveClass="bg-white text-dark" href="/" aria-current="page"
+                    Match="NavLinkMatch.All">Home <span class="visually-hidden">(current)</span></NavLink>
+            </li>
+            <li class="nav-item">
+                <NavLink class="nav-link" href="/about" ActiveClass="bg-white text-dark" Match="NavLinkMatch.All">
+                    B21 - Layout
+                </NavLink>
+            </li>
+            @* <li class="nav-item">
+                <NavLink class="nav-link" href="/binding-car" ActiveClass="bg-white text-dark" Match="NavLinkMatch.All">
+                    B22 - Binding (Car)
+                </NavLink>
+            </li>
+            <li class="nav-item">
+                <NavLink class="nav-link" href="/form" ActiveClass="bg-white text-dark" Match="NavLinkMatch.All">
+                    B23 - Form
+                </NavLink>
+            </li>
+            <li class="nav-item">
+                <NavLink class="nav-link" href="/wallet" ActiveClass="bg-white text-dark" Match="NavLinkMatch.All">
+                    B24 - Wallet
+                </NavLink>
+            </li> *@
+            @* <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">Data binding</a>
+                <div class="dropdown-menu" aria-labelledby="dropdownId">
+                    <a class="dropdown-item" href="/one-way">Oneway</a>
+                    <a class="dropdown-item" href="/two-way">two way</a>
+                </div>
+            </li> *@
+        </ul>
+    </div>
+</nav>

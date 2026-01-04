@@ -1,0 +1,26 @@
+<div class="row mb-5">
+    <!-- Left -->
+    <div class="col-12 col-md-9">
+        <h4 class="fw-bold text-uppercase">
+            @Item.JobTitle
+        </h4>
+
+        <div class="text-muted fw-semibold mb-2">
+            @Item.Company
+        </div>
+
+        <p class="mb-0">
+            @Item.Description
+        </p>
+    </div>
+
+    <!-- Right -->
+    <div class="col-12 col-md-3 text-md-end text-primary fw-semibold">
+        @Item.TimeRange
+    </div>
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public ExperienceDto Item { get; set; } = new ExperienceDto();
+}

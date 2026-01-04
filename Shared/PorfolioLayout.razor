@@ -1,0 +1,37 @@
+@inherits LayoutComponentBase
+@layout MainLayout
+<PageTitle>Porfolio</PageTitle>
+<div class="container-fluid p-0">
+    <div class="row g-0 min-vh-100">
+        <!-- Sidebar -->
+        <aside class="col-12 col-md-3 col-lg-2 bg-primary text-white sidebar d-flex flex-column align-items-center">
+            <div class="mt-4 mb-3">
+                <img src="https://i.pravatar.cc?u=14" class="rounded-circle img-fluid sidebar-avatar" />
+            </div>
+            <nav class="nav flex-column text-center mt-4">
+                <a class="nav-link text-white fw-bold" href="/about">
+                    ABOUT
+                </a>
+                <a class="nav-link text-white" href="/experience">
+                    EXPERIENCE
+                </a>
+                <a class="nav-link text-white" href="/education">
+                    EDUCATION
+                </a>
+                <a class="nav-link text-white" href="/skills">
+                    SKILLS
+                </a>
+                <a class="nav-link text-white" href="/interests">
+                    INTERESTS
+                </a>
+                <a class="nav-link text-white" href="/awards">
+                    AWARDS
+                </a>
+            </nav>
+        </aside>
+        <!-- Content -->
+        <main class="col-12 col-md-9 col-lg-10 px-5 py-5 content d-flex flex-column justify-content-center">
+            @Body
+        </main>
+    </div>
+</div>
