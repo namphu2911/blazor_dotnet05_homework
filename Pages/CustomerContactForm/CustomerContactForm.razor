@@ -1,0 +1,105 @@
+@page "/customer-contact-form"
+<PageTitle>CustomerContactForm</PageTitle>
+<div class="container">
+    <h4 class="d-flex justify-content-center fw-bold mt-4">Customer Contact Form</h4>
+    <div class="row col-6 mx-auto">
+        <EditForm Model="@user" OnValidSubmit="DangKy" OnInvalidSubmit="LOI">
+            <DataAnnotationsValidator />
+
+            <!-- Full Name -->
+            <div class="mb-3">
+                <label class="form-label">Full Name *</label>
+                <input type="text" class="form-control" @bind="@user.FullName" placeholder="Enter your full name" />
+                <ValidationMessage For="@(() => user.FullName)" class="text-danger"></ValidationMessage>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+                <label class="form-label">Email *</label>
+                <input type="text" class="form-control" @bind="@user.Email" placeholder="Enter your email" />
+                <ValidationMessage For="@(() => user.Email)" class="text-danger"></ValidationMessage>
+            </div>
+
+            <!-- Phone Number -->
+            <div class="mb-3">
+                <label for="" class="form-label">Phone Number *</label>
+                <input type="text" class="form-control" @bind="@user.PhoneNumber"
+                    placeholder="Enter your phone number" />
+                <ValidationMessage For="@(() => user.PhoneNumber)" class="text-danger"></ValidationMessage>
+            </div>
+
+            <!-- Address -->
+            <div class="mb-3">
+                <label for="" class="form-label">Address</label>
+                <input type="text" class="form-control" @bind="@user.Address" placeholder="Enter your address" />
+                <ValidationMessage For="@(() => user.Address)" class="text-danger"></ValidationMessage>
+            </div>
+
+
+            <!-- Message -->
+            <div class="mb-3">
+                <label class="form-label">Message *</label>
+                <InputTextArea class="form-control" rows="4" @bind-Value="user.Message"
+                    placeholder="Enter your message" />
+                <ValidationMessage For="@(() => user.Message)" />
+            </div>
+
+            <!-- Select Service -->
+            <div class="mb-3">
+                <label class="form-label">Select Service *</label>
+                <InputSelect class="form-select" @bind-Value="user.ServiceId">
+                    <option value="0">Choose...</option>
+                    @foreach (var service in services)
+                    {
+                        <option value="@service.Id">@service.Name</option>
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => user.ServiceId)" />
+            </div>
+
+            <!-- Accept Terms -->
+            <div class="form-check mb-4">
+                <InputCheckbox class="form-check-input" @bind-Value="user.AcceptTerms" />
+                <label class="form-check-label">
+                    I agree to the terms and conditions *
+                </label>
+                <ValidationMessage For="@(() => user.AcceptTerms)" />
+            </div>
+
+            <button type="submit" class="btn btn-primary me-2">
+                Submit
+            </button>
+            <button type="reset" class="btn btn-secondary">Reset</button>
+            <p class=@messageClass>@message</p>
+        </EditForm>
+    </div>
+</div>
+
+
+@code {
+    public CustomerDto user = new CustomerDto();
+    public string message = "";
+    public string messageClass = "";
+
+    public List<ServiceDto> services = new List<ServiceDto>()
+{
+new ServiceDto(){ Id=1, Name="Web Development"},
+new ServiceDto(){ Id=2, Name="Mobile App Development"},
+new ServiceDto(){ Id=3, Name="UI/UX Design"},
+new ServiceDto(){ Id=4, Name="Digital Marketing"},
+};
+    void DangKy()
+    {
+        string jsonObject = System.Text.Json.JsonSerializer.Serialize(user, new System.Text.Json.JsonSerializerOptions
+        {
+            WriteIndented = true
+        });
+        message = $"Đăng ký thành công cho user\n{jsonObject}";
+        messageClass = "text-success";
+    }
+    void LOI()
+    {
+        message = "Form không hợp lệ, vui lòng kiểm tra lại!";
+        messageClass = "text-danger";
+    }
+}
