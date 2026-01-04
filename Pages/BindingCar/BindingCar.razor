@@ -1,0 +1,23 @@
+@page "/binding-car"
+<div class="container">
+    <h4>Change color car</h4>
+    <div class="container d-flex align-items-start px-0">
+        <img src="image/products/@color-car.jpg" alt="" width="400">
+        @foreach (string color in listColor)
+        {
+            <button @onclick="()=>ChangeColor(color)" style="background-color:@color" class="btn text-white ms-4">
+                @color color
+            </button>            
+        }        
+    </div>
+</div>
+
+
+@code {
+    public List<string> listColor = new List<string>() { "red", "silver", "black" };
+    public string color = "red";
+    void ChangeColor(string newColor)
+    {
+        color = newColor;
+    }
+}
