@@ -1,0 +1,89 @@
+<div class="modal fade @(IsOpen ? "show d-block" : "")" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@Title</h5>
+                <button class="btn-close" @onclick="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <p>Amount</p>
+                <input type="number" class="form-control" min="0" @bind="Amount" />
+                <p class="text-danger">@ErrorMessage</p>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" @onclick="Close">Close</button>
+                <button class="btn btn-primary" @onclick="Confirm">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (IsOpen)
+{
+    <div class="modal-backdrop fade show"></div>
+}
+
+@code {
+    [Parameter]
+    public bool IsOpen { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> IsOpenChanged { get; set; }
+
+    [Parameter]
+    public TransactionType TransactionType { get; set; }
+
+    [Parameter]
+    public EventCallback<TransactionDto> OnConfirm { get; set; }
+
+    [Parameter]
+    public double CurrentWalletBalance { get; set; }
+
+    public string Title => TransactionType == TransactionType.Deposit ? "Deposit" : "Withdraw";
+
+    public double Amount { get; set; }
+
+    public string ErrorMessage { get; set; } = string.Empty;
+
+    private async Task Close()
+    {
+        IsOpen = false;
+        await IsOpenChanged.InvokeAsync(IsOpen);
+    }
+
+    private async Task Confirm()
+    {
+        if (Amount <= 0)
+        {
+            ErrorMessage = "Invalid amount. Please enter a positive value.";
+            return;
+        }
+
+        if (TransactionType == TransactionType.Withdraw && Amount > CurrentWalletBalance)
+        {
+            ErrorMessage = "Withdraw amount exceeds current wallet balance.";
+            return;
+        }
+
+        var transaction = new TransactionDto
+        {
+            Type = TransactionType,
+            Amount = Amount,
+            Date = DateTime.Now
+        };
+
+        await OnConfirm.InvokeAsync(transaction);
+        await Close();
+    }
+
+    protected override void OnParametersSet()
+    {
+        if (IsOpen)
+        {
+            Amount = 0;
+            ErrorMessage = string.Empty;
+        }
+    }
+}

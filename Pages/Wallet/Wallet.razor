@@ -1,0 +1,78 @@
+@page "/wallet"
+<PageTitle>Wallet</PageTitle>
+<div class="container bg-dark d-flex flex-column align-items-center mt-4">
+    <h4 class="fw-bold mt-4 text-white">My Wallet</h4>
+    <h4 class="fw-bold mt-4 text-warning">$@WalletBalance.ToString("F2")</h4>
+    <p class="text-white">Total balance</p>
+    <div class="d-flex justify-content-center gap-3">
+        <button class="btn btn-success" @onclick="() => OpenModal(TransactionType.Deposit)">Deposit</button>
+        <button class="btn btn-danger" @onclick="() => OpenModal(TransactionType.Withdraw)">Withdraw</button>
+    </div>
+    <p class="text-white fs-5 fw-bold mt-4">Transaction History</p>
+    @if (Transactions.Count == 0)
+    {
+        <p class="text-white">No transactions found.</p>
+    }
+    else
+    {
+        <table class="table table-borderless w-75 mb-4">
+            <tbody>
+                @foreach (var transaction in Transactions)
+                {
+                    <tr>
+                    <td class="@GetCellClass(transaction.Type)">
+                        @transaction.Type
+                    </td>
+                    <td class="@GetCellClass(transaction.Type)">
+                        $@transaction.Amount.ToString("F2")
+                    </td>
+                    <td class="@GetCellClass(transaction.Type)">
+                        @transaction.Date.ToString("g")
+                    </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    <TransactionModal @bind-IsOpen="@IsModalOpen" TransactionType="@CurrentTransactionType" OnConfirm="@HandleTransaction" CurrentWalletBalance="@WalletBalance" />
+</div>
+
+
+@code {
+    public double WalletBalance { get; set; } = 100;
+
+    private bool IsModalOpen { get; set; }
+    private TransactionType CurrentTransactionType { get; set; }
+
+    private void OpenModal(TransactionType transactionType)
+    {
+        CurrentTransactionType = transactionType;
+        IsModalOpen = true;
+    }
+
+    private async Task HandleTransaction(TransactionDto transaction)
+    {
+        if (transaction.Type == TransactionType.Deposit)
+        {
+            WalletBalance += transaction.Amount;
+        }
+        else
+        {
+            WalletBalance -= transaction.Amount;
+        }
+
+        Transactions.Insert(0, transaction);
+    }
+
+    public List<TransactionDto> Transactions { get; set; } = new List<TransactionDto>();
+
+    private string GetCellClass(TransactionType type)
+    {
+        return type switch
+        {
+            TransactionType.Deposit => "bg-success-subtle text-success fw-medium",
+            TransactionType.Withdraw => "bg-danger-subtle text-danger fw-medium",
+            _ => "text-dark"
+        };
+    }
+}
